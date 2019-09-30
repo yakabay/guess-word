@@ -1,10 +1,6 @@
 import { observable, autorun } from "mobx";
 
 class GuessedWordsStore {
-    constructor() {
-        autorun(() => console.log(this.guessedWords));
-    }
-
     secretWord = "party";
 
     @observable guessedWords = [
