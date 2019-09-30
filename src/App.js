@@ -1,27 +1,37 @@
 import React from 'react';
-import store from "./GuessedWordsStore";
+import { observer } from "mobx-react";
+import store from "./guessedWordsStore";
 import logo from './logo.svg';
 import './App.css';
 
-const App = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          So sos
-        </a>
-      </header>
-    </div>
-  );
+@observer
+class App extends React.Component {
+  handleKeyDown(e) {
+    if (e.key === "Enter") {
+      store.addWord(e.target.value)
+    }
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <input
+              placeholder="Try to guess word"
+              onKeyDown={this.handleKeyDown}
+          />
+          <img src={logo} className="App-logo" alt="logo" />
+          <div>
+            {store.guessedWords.map( word => (
+                <div key={word.word}>
+                  { word.word } : { word.matchedLetters }
+                </div>
+            ))}
+          </div>
+        </header>
+      </div>
+    );
+  }
 }
 
 export default App;
