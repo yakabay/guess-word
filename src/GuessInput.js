@@ -12,12 +12,20 @@ class GuessInput extends Component {
 
     handleChange = event => {
         const value = event.target.value;
+        const wordHasLessThanSixCharacters = value.length < 6;
 
-        this.setState({value})
+        if (wordHasLessThanSixCharacters) {
+            this.setState({value})
+        }
     };
 
     handleKeyDown = event => {
         const { onPressEnter } = this.props;
+        const spaceIsEntered = event.keyCode === 32;
+
+        if (spaceIsEntered) {
+            event.preventDefault();
+        }
 
         if (event.key === "Enter") {
             onPressEnter(event.target.value)
