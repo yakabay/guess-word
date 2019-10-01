@@ -19,7 +19,7 @@ class App extends React.Component {
           <div>
             {store.guessedWords.map( (word, index) => (
                 <div key={index}>
-                  { word.word } : { word.matchedLetters }
+                  { word.value } : { word.matchedLetters }
                 </div>
             ))}
           </div>

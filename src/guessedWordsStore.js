@@ -5,11 +5,11 @@ class GuessedWordsStore {
 
     @observable guessedWords = [
         {
-            word: "match",
+            value: "match",
             matchedLetters: this.numberOfMatchedLetters("match"),
         },
         {
-            word: "desert",
+            value: "desert",
             matchedLetters: this.numberOfMatchedLetters("desert"),
         },
     ];
@@ -25,10 +25,10 @@ class GuessedWordsStore {
         return result;
     }
 
-    addWord(word) {
+    addWord(value) {
         this.guessedWords.push({
-            word,
-            matchedLetters: this.numberOfMatchedLetters(word),
+            value,
+            matchedLetters: this.numberOfMatchedLetters(value),
         })
     }
 }
