@@ -17,8 +17,8 @@ class App extends React.Component {
 
           <img src={logo} className="App-logo" alt="logo" />
           <div>
-            {store.guessedWords.map( word => (
-                <div key={word.word}>
+            {store.guessedWords.map( (word, index) => (
+                <div key={index}>
                   { word.word } : { word.matchedLetters }
                 </div>
             ))}
