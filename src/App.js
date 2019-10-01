@@ -3,23 +3,18 @@ import { observer } from "mobx-react";
 import store from "./guessedWordsStore";
 import logo from './logo.svg';
 import './App.css';
+import GuessInput from "./GuessInput";
 
 @observer
 class App extends React.Component {
-  handleKeyDown(e) {
-    if (e.key === "Enter") {
-      store.addWord(e.target.value)
-    }
-  };
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <input
-              placeholder="Try to guess word"
-              onKeyDown={this.handleKeyDown}
-          />
+
+          <GuessInput onPressEnter={(value) => store.addWord(value)} />
+
           <img src={logo} className="App-logo" alt="logo" />
           <div>
             {store.guessedWords.map( word => (
