@@ -19,14 +19,16 @@ class GuessedWordsStore {
     ];
 
     numberOfMatchedLetters(word) {
-        let result = 0;
         const letters = word.split("");
-        letters.forEach( letter => {
+        const uniqueLetters = Array.from(new Set(letters));
+
+        return uniqueLetters.reduce((result, letter) => {
             if (this.secretWord.includes(letter)) {
-                result++;
+                return result + 1;
+            } else {
+                return result;
             }
-        });
-        return result;
+        }, 0);
     }
 
     addWord(value) {
