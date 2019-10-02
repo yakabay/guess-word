@@ -9,8 +9,12 @@ class GuessedWordsStore {
             matchedLetters: this.numberOfMatchedLetters("match"),
         },
         {
-            value: "desert",
-            matchedLetters: this.numberOfMatchedLetters("desert"),
+            value: "bingo",
+            matchedLetters: this.numberOfMatchedLetters("bingo"),
+        },
+        {
+            value: "snake",
+            matchedLetters: this.numberOfMatchedLetters("snake"),
         },
     ];
 
