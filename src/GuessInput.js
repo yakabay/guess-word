@@ -1,26 +1,20 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
-class GuessInput extends Component {
-    constructor(props) {
-        super(props);
+const GuessInput = ({onPressEnter}) => {
 
-        this.state = {
-            value: "",
-        };
-    }
+    const [value, setValue] = useState("");
 
-    handleChange = event => {
+    const handleChange = event => {
         const value = event.target.value;
         const wordHasMoreThanFiveCharacters = value.length > 5;
         if (wordHasMoreThanFiveCharacters) {
             return;
         }
-        this.setState({value})
+        setValue(value);
     };
 
-    handleKeyDown = event => {
-        const { onPressEnter } = this.props;
+    const handleKeyDown = event => {
         const value = event.target.value;
         const spaceIsEntered = event.keyCode === 32;
         const wordHasFiveCharacters = value.length === 5;
@@ -31,22 +25,18 @@ class GuessInput extends Component {
 
         if (event.key === "Enter" && wordHasFiveCharacters) {
             onPressEnter(value)
-            this.setState({ value: "" })
+            setValue("");
         }
     };
 
-    render() {
-        const { value } = this.state;
-
-        return (
-            <input
-                placeholder="Try to guess word"
-                value={value}
-                onChange={this.handleChange}
-                onKeyDown={this.handleKeyDown}
-            />
-        );
-    }
+    return (
+        <input
+            placeholder="Try to guess word"
+            value={value}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+        />
+    );
 }
 
 GuessInput.propTypes = {
