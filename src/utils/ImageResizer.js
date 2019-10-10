@@ -9,8 +9,7 @@ export const resizeImage = (imageFile, options) => {
         const { width, height } = initialSize;
         const { width: maxWidth, height: maxHeight } = maxSize;
 
-        let limitedWidth = width;
-        let limitedHeight = height;
+        let limitedWidth, limitedHeight;
 
         if (width > maxWidth) {
             limitedWidth = maxWidth;
@@ -18,6 +17,9 @@ export const resizeImage = (imageFile, options) => {
         } else if (height > maxHeight) {
             limitedHeight = maxHeight;
             limitedWidth = width * (maxHeight / height);
+        } else {
+            limitedWidth = width;
+            limitedHeight = height;
         }
 
         return {
