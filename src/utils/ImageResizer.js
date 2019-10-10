@@ -42,11 +42,9 @@ export const resizeImage = (imageFile, options) => {
             const context = canvas.getContext("2d");
             context.drawImage(imageElement, 0, 0, limitedWidth, limitedHeight);
 
-            canvas.toBlob(blob => resolve(blob));
-            document.body.prepend(canvas)
+            canvas.toBlob(blob => resolve(blob), "image/jpeg");
         };
     });
-
 };
 
 export default {
