@@ -9,8 +9,11 @@ import { resizeImage } from "./utils/ImageResizer";
 @observer
 class App extends React.Component {
   onFileUpload = (e) => {
-    resizeImage(e.target.files[0], {maxSize: {width: 800, height: 600}})
-        .then(result => document.body.prepend(result));
+    const file = e.target.files[0];
+    resizeImage(file, {maxSize: {width: 700, height: 700}})
+        .then(result => {
+          console.log(result, "- result")
+        });
   };
 
   render() {
