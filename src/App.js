@@ -4,16 +4,22 @@ import store from "./guessedWordsStore";
 import logo from './logo.svg';
 import './App.css';
 import GuessInput from "./GuessInput";
+import { resizeImage } from "./utils/ImageResizer";
 
 @observer
 class App extends React.Component {
+  onFileUpload = (e) => {
+    resizeImage(e.target.files[0], {maxWidth: 800, maxHeight: 600})
+        .then(result => document.body.prepend(result));
+  };
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
 
-          <GuessInput onPressEnter={(value) => store.addWord(value)} />
+          {/*<GuessInput onPressEnter={(value) => store.addWord(value)} />*/}
+          <input type="file" onChange={this.onFileUpload}/>
 
           <img src={logo} className="App-logo" alt="logo" />
           <div>
