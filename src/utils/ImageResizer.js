@@ -1,31 +1,46 @@
 export const resizeImage = (imageFile, options) => {
-    const { maxWidth, maxHeight } = options;
+    const { maxSize } = options;
 
     const imageElement = document.createElement("img");
-    imageElement.src = window.URL.createObjectURL(imageFile);
+    const imageURL = imageFile && window.URL.createObjectURL(imageFile);
+    imageElement.src = imageURL;
+
+    const limitSize = (initialSize, maxSize) => {
+        const { width, height } = initialSize;
+        const { width: maxWidth, height: maxHeight } = maxSize;
+
+        let limitedWidth = width;
+        let limitedHeight = height;
+
+        if (width > maxWidth) {
+            limitedWidth = maxWidth;
+            limitedHeight = height * (maxWidth / width);
+        } else if (height > maxHeight) {
+            limitedHeight = maxHeight;
+            limitedWidth = width * (maxHeight / height);
+        }
+
+        return {
+            width: limitedWidth,
+            height: limitedHeight,
+        };
+    };
 
     return new Promise(resolve => {
         imageElement.onload = () => {
-            let { width, height } = imageElement;
+            const initialSize = {
+                width: imageElement.width,
+                height: imageElement.height,
+            };
 
-            if (width > height) {
-                if (width > maxWidth) {
-                    height *= maxWidth / width;
-                    width = maxWidth;
-                }
-            } else {
-                if (height > maxHeight) {
-                    width *= maxHeight / height;
-                    height = maxHeight;
-                }
-            }
+            const { width: limitedWidth, height: limitedHeight } = limitSize(initialSize, maxSize);
 
             const canvas = document.createElement("canvas");
-            canvas.width = width;
-            canvas.height = height;
+            canvas.width = limitedWidth;
+            canvas.height = limitedHeight;
 
             const context = canvas.getContext("2d");
-            context.drawImage(imageElement, 0, 0, width, height);
+            context.drawImage(imageElement, 0, 0, limitedWidth, limitedHeight);
 
             resolve(canvas);
         };
