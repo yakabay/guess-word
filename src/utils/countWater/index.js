@@ -1,19 +1,13 @@
-const countWater = (array) => {
-    let result = 0;
+const countWater = (array, accumulator = 0) => {
+    const croppedArrayFromLeftSide = cropArrayFromLeftSide(array);
+    const croppedArrayFromBothSides = cropArrayFromLeftSide(croppedArrayFromLeftSide.reverse());
 
-    const runForArray = (array) => {
-        const croppedArrayFromLeftSide = cropArrayFromLeftSide(array);
-        const croppedArrayFromBothSides = cropArrayFromLeftSide(croppedArrayFromLeftSide.reverse());
+    const result = accumulator + calculateZeroes(croppedArrayFromBothSides);
 
-        result += calculateZeroes(croppedArrayFromBothSides);
-
-        const decrementedArray = croppedArrayFromBothSides.map(item => item > 0 ? item - 1 : 0);
-        if (decrementedArray.length) {
-            runForArray(decrementedArray);
-        }
-    };
-
-    runForArray(array);
+    const decrementedArray = croppedArrayFromBothSides.map(item => item > 0 ? item - 1 : 0);
+    if (decrementedArray.length) {
+        return countWater(decrementedArray, result);
+    }
 
     return result
 };
