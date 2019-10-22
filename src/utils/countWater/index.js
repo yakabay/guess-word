@@ -5,6 +5,7 @@ const countWater = (array, accumulator = 0) => {
     const result = accumulator + calculateZeroes(croppedArrayFromBothSides);
 
     const decrementedArray = croppedArrayFromBothSides.map(item => item > 0 ? item - 1 : 0);
+
     if (decrementedArray.length) {
         return countWater(decrementedArray, result);
     }
