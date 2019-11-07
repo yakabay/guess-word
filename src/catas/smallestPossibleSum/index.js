@@ -1,24 +1,37 @@
-const minimize = (array) => {
-    const maxNumberIndex = indexOfMax(array);
-    return maxNumberIndex;
+const solution = (array) =>  {
+    const i = array.length - 1;
+    return decreaseNumber(array, i);
 };
 
-const indexOfMax = (arr) => {
-    if (arr.length === 0) {
-        return -1;
+const decreaseNumber = (array, i) => {
+    let next = i - 1;
+
+    if (next === -1) {
+        next = array.length - 1;
     }
 
-    var max = arr[0];
-    var maxIndex = 0;
+    while (array[i] > array[next]) {
+        console.log(array, `X[${i}] - X[${next}] :`, `${array[i]} - ${array[next]}`);
+        array[i] = array[i] - array[next];
+        next--;
 
-    for (var i = 1; i < arr.length; i++) {
-        if (arr[i] > max) {
-            maxIndex = i;
-            max = arr[i];
+        if (next === -1) {
+            next = array.length - 1;
+        }
+
+        if (next === i) {
+            next = i - 1;
         }
     }
 
-    return maxIndex;
+    if (array[i] < array[next]) {
+       return decreaseNumber(array, next);
+    }
+
+    console.log(array, "- array");
+    return array.reduce( (accumulator, currentValue) => {
+        return accumulator + currentValue;
+    });
 };
 
-export default minimize;
+export default solution;
